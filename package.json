@@ -1,0 +1,25 @@
+{
+  "name": "cs333-lab4",
+  "version": "1.0.0",
+  "description": "Node on your own computer: a QR code generator, then a Band Name Generator server 🎸",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SOU-Boscoe/cs333-lab4.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/SOU-Boscoe/cs333-lab4/issues"
+  },
+  "homepage": "https://github.com/SOU-Boscoe/cs333-lab4#readme",
+  "dependencies": {
+    "@inquirer/prompts": "^8.7.4",
+    "qrcode": "^1.5.4"
+  }
+}

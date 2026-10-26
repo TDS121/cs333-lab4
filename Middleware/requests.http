@@ -5,7 +5,7 @@ GET http://localhost:3000/
 POST http://localhost:3000/submit
 Content-Type: application/x-www-form-urlencoded
 
-street=Maple&pet=Biscuit
+street=Maple&pet=Waffles
 
 ### Missing a field → expect 400 (solution 4)
 POST http://localhost:3000/submit

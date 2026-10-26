@@ -14,6 +14,8 @@ Every step gives you the code. Type it in (typing it is how it sticks), run it, 
 
 This lab runs **on your computer**. Our `lampforall` server only hands out the files you upload; it can't run Node programs. **Question 1**: Why can't our lampforall run Node?
 
+> **Answer:** `lampforall` is a normal web server that only hands files like HTML, CSS and images to the browser. Node is a separate program that is not installed on it, so it can't run `node index.js`.
+
 **Stuck on Monday?** Look at the **Stuck?** table at the bottom first. Then post in the Slack lab thread: (1) the command you ran, (2) the **exact** error, copied and pasted, (3) what you already tried. Helping a classmate counts too.
 
 ---
@@ -47,6 +49,8 @@ You should see something like `v22.11.0` or higher. If you see "command not foun
 
 **Question 2:** what version do you have?
 
+> **Answer:** `v24.21.0`
+
 ## 3. Try Node by itself
 
 Type `node` and press Enter. The prompt changes to `>`. Now Node runs each line you type:
@@ -60,6 +64,8 @@ Type `node` and press Enter. The prompt changes to `>`. Now Node runs each line 
 Type `.exit` to leave.
 
 **Question 3:** `document` worked in the browser's Console. What happens here, and why do you think that is?
+
+> **Answer:** I got `Uncaught ReferenceError: document is not defined`. The browser makes `document` to represent the web page, but Node has no web page, so it doesn't exist there.
 
 ## 4. Your first Node program
 
@@ -91,6 +97,8 @@ node --watch index.js
 ```
 
 **Question 4:** What does the `--watch` flag do?
+
+> **Answer:** It keeps the program running and watches the file. Every time I save, Node runs it again by itself until I cancel.
 
 **TODO:** change the message and save. It runs again by itself. Press **Ctrl+C** to stop it.
 
@@ -129,6 +137,8 @@ Run it with `node index.js`. A new `message.txt` appears in your folder. Open it
 
 **Question 5:** what is the error code? (It's a word in capitals.)
 
+> **Answer:** `ENOENT` (no such file or directory).
+
 **TODO 2:** fix the crash with `try` / `catch`, the same as last Wednesday. Replace the last two lines with:
 
 ```js
@@ -143,6 +153,10 @@ try {
 Run it again: a friendly message instead of a crash.
 
 **Question 6:** How does try/catch in js work with await? Just describe the above example in your own words.
+
+> **Answer:** `await readFile` waits for the file, and if the file is missing it throws an error. Because it is inside `try`, the program skips the rest of the `try` block and jumps to `catch`. `error.code` is `ENOENT`, so it prints a friendly message instead of crashing.
+
+So it will try first and since it throws, it will skip whatever is inside try and goes straight to catch.
 
 ## 7. You'll see older code too
 
@@ -172,10 +186,12 @@ There are two popular QR code packages. Look each one up on [npmjs.com](https://
 
 | | `qr-image` | `qrcode` |
 | --- | --- | --- |
-| Weekly downloads | | |
-| Last published (look on the right side of the page) | | |
+| Weekly downloads | about 138,000 | about 19,000,000 |
+| Last published (look on the right side of the page) | version 3.2.0, December 2016 (about 10 years ago) | version 1.5.4, August 2024 |
 
 **Question 8:** which would you pick for a project you had to look after for years, and why? (We'll use `qrcode`.)
+
+> **Answer:** `qrcode`. It has way more downloads and was updated in 2024, so it is still being looked after. `qr-image` has not been updated since 2016, so bugs won't get fixed.
 
 ## 9. The QR code generator
 
@@ -230,6 +246,8 @@ const url = await input({
 
 **TODO:** run it and type `sou.edu`. What happens? Then type `https://sou.edu`.
 
+> Typing `sou.edu` shows the red message "Type the whole address, starting with https://" and makes me try again. Typing `https://sou.edu` works.
+
 **Step D: name the file after the website.** Replace your `toFile` and `console.log` lines with:
 
 ```js
@@ -264,6 +282,8 @@ This program can't run on your `lampforall` website. (you answered why this is t
 
 **Optional extra:** make an SVG instead of a PNG: change the file name to end in `.svg`. Why might an SVG be better for printing on a poster?
 
+> An SVG is made of shapes, not pixels, so it stays sharp at any size. A PNG goes blurry when you make it poster size.
+
 ---
 
 # Part 2: Express (after Wednesday)
@@ -288,6 +308,8 @@ To run a file: `npm run dev1` (or `dev2`, `dev3`, `dev4`). That runs `node --wat
 10. Run `npm run dev1` and open `http://localhost:3000`. You see the form. Fill it in and press the button.
     **Question 9:** what does the page say?
 
+    > **Answer:** The page says `Cannot POST /submit`. The server has no route for `/submit` yet.
+
 11. Add a route for the form. Type this above `app.listen`:
     ```js
     app.post("/submit", function (req, res) {
@@ -297,11 +319,15 @@ To run a file: `npm run dev1` (or `dev2`, `dev3`, `dev4`). That runs `node --wat
     ```
     Submit the form again. **Question 10:** what does the server terminal print for `req.body`?
 
+    > **Answer:** It prints `undefined`. Express doesn't read the form data unless we tell it to.
+
 12. Add this line under `const port = 3000;`:
     ```js
     app.use(express.urlencoded());
     ```
     Submit again. **Question 11:** what does the terminal print now? What did `express.urlencoded()` do?
+
+    > **Answer:** Now it prints `{ street: 'Maple', pet: 'Biscuit' }`. `express.urlencoded()` reads the form data the browser sent and turns it into an object on `req.body`.
 
 13. **Test without the browser.** Install the **REST Client** extension in VS Code, open `Middleware/requests.http`, and click **Send Request** above the second request. The answer opens on the right.
     **TODO:** change `Biscuit` to another pet name in `requests.http` and send it again. Look at the server terminal.
@@ -318,9 +344,13 @@ To run a file: `npm run dev1` (or `dev2`, `dev3`, `dev4`). That runs `node --wat
     Reload `http://localhost:3000` a few times and look at the terminal.
     **Question 12:** a log line looks like `GET / 200 3.1 ms - 5`. What do you think each part means?
 
+    > **Answer:** `GET` is the request type, `/` is the page asked for, and `200` means OK. `3.1 ms` is how long it took, and `5` is the size of the reply (`Hello` is 5 letters).
+
 ## index3.js: write your own middleware
 
 15. Run `npm run dev3`. It crashes straight away. **Question 13:** what does the error say?
+
+    > **Answer:** `ReferenceError: logger is not defined`. The file uses a function called `logger` that doesn't exist yet.
 
 16. Fix it: type this function above `app.use(logger);`:
     ```js
@@ -333,6 +363,8 @@ To run a file: `npm run dev1` (or `dev2`, `dev3`, `dev4`). That runs `node --wat
     Reload the page and look at the terminal.
 
 17. **TODO:** put `//` in front of `next();` and reload the page. **Question 14:** what happens in the browser? Why? Then take the `//` away.
+
+    > **Answer:** The browser spins forever and never loads. `next()` passes the request on to the route, so without it nothing ever sends a reply.
 
 ## index4.js: the Band Name Generator
 
@@ -356,8 +388,12 @@ To run a file: `npm run dev1` (or `dev2`, `dev3`, `dev4`). That runs `node --wat
 
 20. **TODO:** type `<b>Maple</b>` as the street name. **Question 15:** what happens, and why is that the same problem as Week 3's `innerHTML`?
 
+    > **Answer:** The street name shows up in bold instead of showing the `<b>` tags. The server put my text straight into the HTML, so the browser ran it as HTML. That is the same as `innerHTML`, where a user could type `<script>` and run code on the page.
+
 21. Now look at `solution4.js`. It fixes that with `escapeHtml`, and it moves the band-name step into its own middleware, `bandNameGenerator`, which only runs for `/submit`. Copy those two functions into your `index4.js` and change your route to match `solution4.js`.
     **Question 16:** what does `bandNameGenerator` do when a box is empty? Test it with the third request in `requests.http`.
+
+    > **Answer:** If a box is empty it sends back a `400` error that says "Both names are needed" and stops, without calling `next()`. The third request only sends `street`, so it gets the 400.
 
 **Commit** after each `indexN.js` works.
 
@@ -419,6 +455,8 @@ The Band Name Generator has no style at all yet. Give it some.
    ```
 
 **Question:** add a screenshot of your styled Band Name Generator to this README.
+
+![My styled Band Name Generator](Middleware/screenshot.png)
 
 ---
 

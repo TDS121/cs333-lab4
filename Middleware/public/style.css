@@ -1,0 +1,86 @@
+/* Same look as my landing page on lampforall */
+:root {
+  --main: rgb(89, 89, 236);
+  --card: #f8f9fa;
+  --background: #eee;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--background);
+  font-family: Arial, sans-serif;
+  max-width: 30rem;
+  margin: 3rem auto;
+  padding: 0 20px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+h1 {
+  background: var(--main);
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  font-size: 2rem;
+}
+
+h2 {
+  background: var(--card);
+  padding: 15px 20px;
+  border-left: 5px solid var(--main);
+  border-radius: 4px;
+  font-size: 2rem;
+}
+
+form {
+  background: var(--card);
+  padding: 20px;
+  border-radius: 10px;
+  border-left: 5px solid var(--main);
+  text-align: left;
+}
+
+label {
+  font-weight: bold;
+}
+
+input,
+button {
+  display: block;
+  width: 100%;
+  margin: 0.5rem 0 1rem;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+input:focus {
+  outline: 2px solid var(--main);
+}
+
+button {
+  background: var(--main);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-bottom: 0;
+}
+
+button:hover {
+  background: rgb(60, 60, 200);
+}
+
+a {
+  display: inline-block;
+  background: var(--card);
+  color: var(--main);
+  padding: 10px 16px;
+  border-radius: 4px;
+  border-left: 5px solid var(--main);
+  text-decoration: none;
+}
